@@ -1,0 +1,10 @@
+orchestrator:
+  callbackUrl: http://localhost:8300/jme-bptest-orchestrator-service
+  testagentURLs:
+    TestAgentA: "urlA"
+    TestAgentB: "urlB"
+  zephyr:
+    restApiUrl: "http://localhost:"
+    zephyrEnvironment: "LOCAL"
+    username: "theUserName"
+    password: "thePwd"

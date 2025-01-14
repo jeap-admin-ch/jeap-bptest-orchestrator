@@ -1,0 +1,6 @@
+ch.admin.bit.jeap.testorchestrator.adapter.jpa.JpaAdapterConfig
+ch.admin.bit.jeap.testorchestrator.adapter.testagent.AsyncConfig
+ch.admin.bit.jeap.testorchestrator.adapter.testagent.TestAgentAdapterConfig
+ch.admin.bit.jeap.testorchestrator.adapter.zephyr.ZephyrAdapterConfig
+ch.admin.bit.jeap.testorchestrator.metrics.MetricsConfig
+ch.admin.bit.jeap.testorchestrator.services.ServicesConfig
