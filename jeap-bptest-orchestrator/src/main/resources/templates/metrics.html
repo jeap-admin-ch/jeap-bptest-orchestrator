@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Test-Orchestrator Metrics</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th {
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+        .styled-table a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body></body>
+<h1>Test-Orchestrator Metrics</h1>
+<table class="styled-table">
+    <thead>
+    <tr>
+        <th>Test Case</th>
+        <th>TestRuns Total</th>
+        <th>TestRuns Successfully</th>
+        <th>Average Successfully Duration</th>
+        <th>TestRuns Failed</th>
+        <th>Average Failed Duration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="testcase: ${metrics}">
+        <td th:text="${testcase.testCaseName}">testCaseName</td>
+        <td th:text="${testcase.totalTestRuns}">totalTestRuns</td>
+        <td th:text="${testcase.successfulTestRuns}">successfulTestRuns</td>
+        <td th:text="${testcase.averageSuccessDuration}">averageSuccessDuration</td>
+        <td th:text="${testcase.failedTestRuns}">failedTestRuns</td>
+        <td th:text="${testcase.averageFailedDuration}">averageFailedDuration</td>
+    </tr>
+    </tbody>
+</table>
+</html>
