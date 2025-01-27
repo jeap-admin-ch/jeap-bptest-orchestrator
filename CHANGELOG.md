@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.21.0] - 2025-01-27
+
+### Changed
+
+- Prepare repository for Open Source distribution
+
 ## [3.20.0] - 2025-01-15
 
 ### Changed
