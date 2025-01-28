@@ -12,6 +12,11 @@
     <artifactId>jeap-bptest-orchestrator-instance</artifactId>
     <packaging>pom</packaging>
 
+    <properties>
+        <!-- prevent the license plugin from adding a THIRD-PARTY-LICENSES.md file to this pom packaged project -->
+        <license.skipAggregateAddThirdParty>true</license.skipAggregateAddThirdParty>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>ch.admin.bit.jeap</groupId>
