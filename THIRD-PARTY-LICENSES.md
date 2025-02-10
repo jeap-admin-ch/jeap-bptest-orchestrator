@@ -8,11 +8,6 @@ Third-party dependencies grouped by their license type (see [pom.xml](/pom.xml) 
 Apache License Version 2.0
 -------------------------------
 
- * Hibernate Commons Annotations - [org.hibernate.common:hibernate-commons-annotations](http://hibernate.org)
-
-Apache License, Version 2.0
--------------------------------
-
  * jeap-bptest-orchestrator - [ch.admin.bit.jeap:jeap-bptest-orchestrator](https://github.com/jeap-admin-ch/jeap-bptest-orchestrator/tree/main/jeap-bptest-orchestrator)
  * jeap-bptestagent-api - [ch.admin.bit.jeap:jeap-bptestagent-api](https://github.com/jeap-admin-ch/jeap-spring-boot-parent/tree/main/jeap-bptestagent-api)
  * jeap-spring-boot-application-starter - [ch.admin.bit.jeap:jeap-spring-boot-application-starter](https://github.com/jeap-admin-ch/jeap-spring-boot-starters/tree/main/jeap-spring-boot-application-starter)
@@ -70,6 +65,7 @@ Apache License, Version 2.0
  * Awaitility - [org.awaitility:awaitility](http://awaitility.org)
  * flyway-core - [org.flywaydb:flyway-core](https://flywaydb.org/flyway-core)
  * flyway-database-postgresql - [org.flywaydb:flyway-database-postgresql](https://flywaydb.org/flyway-database-postgresql)
+ * Hibernate Commons Annotations - [org.hibernate.common:hibernate-commons-annotations](http://hibernate.org)
  * Hibernate Validator Engine - [org.hibernate.validator:hibernate-validator](http://hibernate.org/validator/hibernate-validator)
  * JBoss Logging 3 - [org.jboss.logging:jboss-logging](http://www.jboss.org)
  * JSpecify annotations - [org.jspecify:jspecify](http://jspecify.org/)
