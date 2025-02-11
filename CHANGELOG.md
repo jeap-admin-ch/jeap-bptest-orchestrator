@@ -1,10 +1,11 @@
 # Changelog
 
-## [3.22.0] - 2025-02-10
+## [3.22.0] - 2025-02-11
 
 ### Changed
 
 - Update parent from 26.22.3 to 26.23.0
+- Publish to maven central
 
 ## [3.21.0] - 2025-01-27
 

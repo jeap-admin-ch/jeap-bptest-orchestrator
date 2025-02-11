@@ -6,10 +6,13 @@
     <url>https://github.com/jeap-admin-ch/jeap-bptest-orchestrator/tree/main</url>
     <scm>
         <url>https://github.com/jeap-admin-ch/jeap-bptest-orchestrator.git</url>
+        <connection>scm:git:git://github.com/jeap-admin-ch/jeap-bptest-orchestrator.git</connection>
+        <developerConnection>scm:git:ssh://github.com:jeap-admin-ch/jeap-bptest-orchestrator.git</developerConnection>
     </scm>
     <developers>
         <developer>
             <name>BIT</name>
+            <email>jeap-community@bit.admin.ch</email>
             <organization>Federal Office of Information Technology, Systems and Telecommunication FOITT</organization>
             <organizationUrl>https://www.bit.admin.ch/</organizationUrl>
         </developer>
@@ -34,6 +37,10 @@
     <packaging>pom</packaging>
     <description>Parent project of the jEAP Business Process Test Orchestrator</description>
 
+    <properties>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
+    </properties>
+    
     <modules>
         <module>jeap-bptest-orchestrator</module>
         <module>jeap-bptest-orchestrator-instance</module>
