@@ -5,6 +5,7 @@
 ### Changed
 
 - Update parent from 26.23.0 to 26.24.2
+- Disable license plugins for service instances
 
 ## [3.22.0] - 2025-02-11
 
