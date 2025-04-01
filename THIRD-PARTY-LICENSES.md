@@ -27,7 +27,6 @@ Apache License Version 2.0
  * Jackson datatype: jdk8 - [com.fasterxml.jackson.datatype:jackson-datatype-jdk8](https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jdk8)
  * Jackson datatype: JSR310 - [com.fasterxml.jackson.datatype:jackson-datatype-jsr310](https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jsr310)
  * Jackson-module-parameter-names - [com.fasterxml.jackson.module:jackson-module-parameter-names](https://github.com/FasterXML/jackson-modules-java8/jackson-module-parameter-names)
- * WireMock - [com.github.tomakehurst:wiremock-jre8-standalone](http://wiremock.org)
  * json-path - [com.jayway.jsonpath:json-path](https://github.com/jayway/JsonPath)
  * JSON library from Android SDK - [com.vaadin.external.google:android-json](http://developer.android.com/sdk)
  * HikariCP - [com.zaxxer:HikariCP](https://github.com/brettwooldridge/HikariCP)
@@ -111,6 +110,7 @@ Apache License Version 2.0
  * thymeleaf-spring6 - [org.thymeleaf:thymeleaf-spring6](http://www.thymeleaf.org/thymeleaf-lib/thymeleaf-spring6)
  * unbescape - [org.unbescape:unbescape](http://www.unbescape.org)
  * Swagger UI - [org.webjars:swagger-ui](https://www.webjars.org)
+ * WireMock - [org.wiremock:wiremock-standalone](http://wiremock.org)
  * org.xmlunit:xmlunit-core - [org.xmlunit:xmlunit-core](https://www.xmlunit.org/)
  * SnakeYAML - [org.yaml:snakeyaml](https://bitbucket.org/snakeyaml/snakeyaml)
 
