@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.25.0] - 2025-04-01
+
+### Changed
+
+- Update parent from 26.33.0 to 26.42.0
+
 ## [3.24.0] - 2025-03-06
 
 ### Changed
