@@ -11,6 +11,8 @@
 ### Changed
 
 - Update parent from 26.24.2 to 26.33.0
+- Update jeap-bptestagent-api from 2.20.0 to 2.23.0
+- Update wiremock from 2.35.0 to 3.12.1, also change groupId from com.github.tomakehurst to org.wiremock
 
 ## [3.23.0] - 2025-02-13
 
