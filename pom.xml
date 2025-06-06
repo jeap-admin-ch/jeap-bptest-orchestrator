@@ -33,6 +33,7 @@
     </parent>
 
     <artifactId>jeap-bptest-orchestrator-parent</artifactId>
+    <name>${project.groupId}:${project.artifactId}</name>
     <version>3.27.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>Parent project of the jEAP Business Process Test Orchestrator</description>

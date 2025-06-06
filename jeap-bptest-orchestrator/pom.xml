@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>jeap-bptest-orchestrator</artifactId>
+    <name>${project.groupId}:${project.artifactId}</name>
     <version>3.27.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>jEAP Business Process Test Orchestrator</description>
