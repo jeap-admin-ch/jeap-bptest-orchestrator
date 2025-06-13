@@ -7,12 +7,12 @@
     <parent>
         <groupId>ch.admin.bit.jeap</groupId>
         <artifactId>jeap-bptest-orchestrator-parent</artifactId>
-        <version>3.27.0-SNAPSHOT</version>
+        <version>3.28.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>jeap-bptest-orchestrator</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
-    <version>3.27.0-SNAPSHOT</version>
+    <version>3.28.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>jEAP Business Process Test Orchestrator</description>
 
