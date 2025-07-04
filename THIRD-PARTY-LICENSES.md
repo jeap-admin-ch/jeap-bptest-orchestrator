@@ -9,7 +9,7 @@ Apache License Version 2.0
 -------------------------------
 
  * ch.admin.bit.jeap:jeap-bptest-orchestrator - [ch.admin.bit.jeap:jeap-bptest-orchestrator](https://github.com/jeap-admin-ch/jeap-bptest-orchestrator/tree/main/jeap-bptest-orchestrator)
- * jeap-bptestagent-api - [ch.admin.bit.jeap:jeap-bptestagent-api](https://github.com/jeap-admin-ch/jeap-bptestagent-api/tree/main)
+ * ch.admin.bit.jeap:jeap-bptestagent-api - [ch.admin.bit.jeap:jeap-bptestagent-api](https://github.com/jeap-admin-ch/jeap-bptestagent-api/tree/main)
  * ch.admin.bit.jeap:jeap-spring-boot-application-starter - [ch.admin.bit.jeap:jeap-spring-boot-application-starter](https://github.com/jeap-admin-ch/jeap-spring-boot-starters/tree/main/jeap-spring-boot-application-starter)
  * ch.admin.bit.jeap:jeap-spring-boot-cloud-autoconfig-starter - [ch.admin.bit.jeap:jeap-spring-boot-cloud-autoconfig-starter](https://github.com/jeap-admin-ch/jeap-spring-boot-starters/tree/main/jeap-spring-boot-cloud-autoconfig-starter)
  * ch.admin.bit.jeap:jeap-spring-boot-logging-starter - [ch.admin.bit.jeap:jeap-spring-boot-logging-starter](https://github.com/jeap-admin-ch/jeap-spring-boot-starters/tree/main/jeap-spring-boot-logging-starter)
