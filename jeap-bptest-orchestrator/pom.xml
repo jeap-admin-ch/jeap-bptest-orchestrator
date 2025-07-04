@@ -17,8 +17,8 @@
     <description>jEAP Business Process Test Orchestrator</description>
 
     <properties>
-        <jeap-bptestagent-api.version>2.23.0</jeap-bptestagent-api.version>
-        <wiremock.version>3.12.1</wiremock.version>
+        <jeap-bptestagent-api.version>2.28.0</jeap-bptestagent-api.version>
+        <wiremock.version>3.13.1</wiremock.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
     </properties>
 

@@ -29,6 +29,8 @@
 ### Changed
 
 - Update parent from 26.43.2 to 26.55.0
+- update jeap-bptestagent-api from 2.23.0 to 2.28.0
+- update wiremockfrom 3.12.1 to 3.13.1
 
 ## [3.26.0] - 2025-04-15
 
