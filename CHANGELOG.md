@@ -1,5 +1,11 @@
 # Changelog
 
+## [3.39.0] - 2025-09-19
+
+### Changed
+
+- Update parent from 27.1.1 to 27.2.0
+
 ## [3.38.0] - 2025-09-11
 
 ### Changed
