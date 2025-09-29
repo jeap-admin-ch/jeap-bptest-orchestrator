@@ -1,8 +1,8 @@
 publiccodeYmlVersion: 0.4.0
 name: jeap-bptest-orchestrator
 applicationSuite: jEAP
-softwareVersion: 3.39.0
-releaseDate: 2025-09-19
+softwareVersion: 3.40.0
+releaseDate: 2025-09-29
 url: "https://github.com/jeap-admin-ch/jeap-bptest-orchestrator.git"
 landingURL: "https://github.com/jeap-admin-ch/jeap"
 platforms:
