@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.0.0] - 2025-11-06
+
+### Changed
+
+-  Breaking Change
+    - **Removed** the PostgreSQL `afterMigrate` script (previously required only for Cloud Foundry).
+    - **Updated** Flyway migration path to `db/migration`.
+    - **Cloud Foundry deployments are no longer supported** starting with this version.
+
 ## [3.41.0] - 2025-10-03
 
 ### Changed

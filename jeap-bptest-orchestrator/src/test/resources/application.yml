@@ -2,7 +2,6 @@ spring:
   application:
     name: test
   flyway:
-    locations: classpath:db/migration/common
     init-sqls:
       - SET NON_KEYWORDS value
   datasource:
