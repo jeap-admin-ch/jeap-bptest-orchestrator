@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.4.0] - 2025-12-03
+
+### Changed
+
+- Update parent from 29.4.0 to 30.0.0
+
 ## [4.3.0] - 2025-12-02
 
 ### Changed
