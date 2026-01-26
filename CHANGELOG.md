@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.13.0] - 2026-01-26
+
+### Changed
+
+- Update parent from 30.8.0 to 30.14.0
+
 ## [4.12.0] - 2026-01-14
 
 ### Changed
