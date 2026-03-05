@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.16.0] - 2026-03-05
+
+### Changed
+
+- Update parent from 30.18.0 to 30.19.0
+
 ## [4.15.0] - 2026-03-02
 
 ### Changed
