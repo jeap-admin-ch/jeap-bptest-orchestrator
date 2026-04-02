@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.22.0] - 2026-04-02
+
+### Changed
+
+- Update parent from 32.0.0 to 33.0.0
+
 ## [4.21.0] - 2026-03-31
 
 ### Changed
