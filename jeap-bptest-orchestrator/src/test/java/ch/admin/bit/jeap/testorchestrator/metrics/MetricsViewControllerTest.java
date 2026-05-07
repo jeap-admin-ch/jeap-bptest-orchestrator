@@ -3,7 +3,7 @@ package ch.admin.bit.jeap.testorchestrator.metrics;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
@@ -58,21 +58,21 @@ class MetricsViewControllerTest {
     }
 
     private List<TestCaseMetricsDto> createMetricList() {
-        TestCaseMetricsDto testCaseMetricsDto_1 = new TestCaseMetricsDto(TEST_CASE_NAME_1,
+        TestCaseMetricsDto testCaseMetricsDto1 = new TestCaseMetricsDto(TEST_CASE_NAME_1,
                 199,
                 198,
                 1,
                 "00:01:30.00",
                 "00:00:15.00");
 
-        TestCaseMetricsDto testCaseMetricsDto_2 = new TestCaseMetricsDto(TEST_CASE_NAME_2,
+        TestCaseMetricsDto testCaseMetricsDto2 = new TestCaseMetricsDto(TEST_CASE_NAME_2,
                 299,
                 298,
                 2,
                 "00:01:30.00",
                 "00:00:15.00");
 
-        return List.of(testCaseMetricsDto_1, testCaseMetricsDto_2);
+        return List.of(testCaseMetricsDto1, testCaseMetricsDto2);
     }
 
 }

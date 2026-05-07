@@ -7,18 +7,18 @@
     <parent>
         <groupId>ch.admin.bit.jeap</groupId>
         <artifactId>jeap-bptest-orchestrator-parent</artifactId>
-        <version>4.26.0-SNAPSHOT</version>
+        <version>5.0.0-alpha-springboot4-SNAPSHOT</version>
     </parent>
 
     <artifactId>jeap-bptest-orchestrator</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
-    <version>4.26.0-SNAPSHOT</version>
+    <version>5.0.0-alpha-springboot4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>jEAP Business Process Test Orchestrator</description>
 
     <properties>
-        <jeap-bptestagent-api.version>2.28.0</jeap-bptestagent-api.version>
-        <wiremock.version>3.13.1</wiremock.version>
+        <jeap-bptestagent-api.version>3.0.0-alpha-springboot4</jeap-bptestagent-api.version>
+        <wiremock.version>3.13.2</wiremock.version>
         <maven.javadoc.skip>false</maven.javadoc.skip>
     </properties>
 
@@ -32,6 +32,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-flyway</artifactId>
         </dependency>
 
         <dependency>
@@ -78,6 +83,11 @@
         </dependency>
 
         <!-- test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

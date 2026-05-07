@@ -7,11 +7,9 @@ import ch.admin.bit.jeap.testagent.api.prepare.PreparationResultDto;
 import ch.admin.bit.jeap.testagent.api.update.DynamicDataDto;
 import ch.admin.bit.jeap.testagent.api.verify.ReportDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.web.client.ClientHttpRequestFactories;
-import org.springframework.boot.web.client.ClientHttpRequestFactorySettings;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
-import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClient.RequestHeadersSpec.ConvertibleClientHttpResponse;
@@ -26,6 +24,8 @@ import static net.logstash.logback.argument.StructuredArguments.value;
 @Slf4j
 public class TestAgentWebClient {
 
+    private static final String TEST_ID = "testId";
+    private static final String TEST_AGENT_NAME = "testAgentName";
     private final RestClient restClient;
     private final Map<String, String> testAgentsMap;
     private final Duration readTimeout;
@@ -43,14 +43,14 @@ public class TestAgentWebClient {
     }
 
     private RestClient createRestClient(RestClient.Builder restClientBuilder) {
-        ClientHttpRequestFactory timeoutRequestFactory = ClientHttpRequestFactories.get(ClientHttpRequestFactorySettings.DEFAULTS
-                .withReadTimeout(readTimeout));
+        SimpleClientHttpRequestFactory timeoutRequestFactory = new SimpleClientHttpRequestFactory();
+        timeoutRequestFactory.setReadTimeout(readTimeout);
         return restClientBuilder.requestFactory(timeoutRequestFactory).build();
     }
 
     public PreparationResultDto prepare(String testAgentName, String testId, PreparationDto preparationDto) {
         String testAgentURL = testAgentsMap.get(testAgentName);
-        log.info("Prepare {} for test {}: Put {} with url {}", value("testAgentName", testAgentName), value("testId", testId), preparationDto, testAgentURL);
+        log.info("Prepare {} for test {}: Put {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), preparationDto, testAgentURL);
         try {
             return restClient.put()
                     .uri(testAgentURL + API_PATH + testId)
@@ -67,7 +67,7 @@ public class TestAgentWebClient {
 
     public ActionResultDto act(String testAgentName, String testId, ActionDto actionDto) {
         String testAgentURL = testAgentsMap.get(testAgentName);
-        log.info("Act on {} for test {}: Put {} with url {}", value("testAgentName", testAgentName), value("testId", testId), actionDto, testAgentURL);
+        log.info("Act on {} for test {}: Put {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), actionDto, testAgentURL);
         try {
             return restClient.post()
                     .uri(testAgentURL + API_PATH + testId + "/actions")
@@ -84,7 +84,7 @@ public class TestAgentWebClient {
 
     public void update(String testAgentName, String testId, DynamicDataDto dynamicDataDto) {
         String testAgentURL = testAgentsMap.get(testAgentName);
-        log.info("Update {} for test {}: Put {} with url {}", value("testAgentName", testAgentName), value("testId", testId), dynamicDataDto, testAgentURL);
+        log.info("Update {} for test {}: Put {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), dynamicDataDto, testAgentURL);
         try {
             restClient.put()
                     .uri(testAgentURL + API_PATH + testId + "/dynamicdata")
@@ -101,7 +101,7 @@ public class TestAgentWebClient {
 
     public ReportDto verify(String testAgentName, String testId) {
         String testAgentURL = testAgentsMap.get(testAgentName);
-        log.info("Verify {} for test {} with url {}", value("testAgentName", testAgentName), value("testId", testId), testAgentURL);
+        log.info("Verify {} for test {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), testAgentURL);
         try {
             return restClient.get()
                     .uri(testAgentURL + API_PATH + testId + "/report")
@@ -116,7 +116,7 @@ public class TestAgentWebClient {
 
     public void delete(String testAgentName, String testId) {
         String testAgentURL = testAgentsMap.get(testAgentName);
-        log.info("Delete on {} for test {} with url {}", value("testAgentName", testAgentName), value("testId", testId), testAgentURL);
+        log.info("Delete on {} for test {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), testAgentURL);
         try {
             restClient.delete()
                     .uri(testAgentURL + API_PATH + testId)

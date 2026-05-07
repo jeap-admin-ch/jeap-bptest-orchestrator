@@ -5,7 +5,7 @@ import ch.admin.bit.jeap.testorchestrator.domain.TestReport;
 import ch.admin.bit.jeap.testorchestrator.domain.TestResult;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import jakarta.persistence.EntityManager;
@@ -37,10 +37,10 @@ class TestReportJpaRepositoryTest {
     @Test
     void save_ThenGetOverallConculsion() {
         TestReport testReport = new TestReport(UUID.randomUUID(), "Detail");
-        TestResult testResult_1 = new TestResult("TestResult1", "TestResultDetail", TestConclusion.FAIL);
-        TestResult testResult_2 = new TestResult("TestResult2", "TestResultDetail", TestConclusion.PASS);
-        testReport.add(testResult_1);
-        testReport.add(testResult_2);
+        TestResult testResult1 = new TestResult("TestResult1", "TestResultDetail", TestConclusion.FAIL);
+        TestResult testResult2 = new TestResult("TestResult2", "TestResultDetail", TestConclusion.PASS);
+        testReport.add(testResult1);
+        testReport.add(testResult2);
         TestReport testReportSaved = repository.saveAndFlush(testReport);
 
         entityManager.detach(testReportSaved);
