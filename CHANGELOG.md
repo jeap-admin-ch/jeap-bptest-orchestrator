@@ -2,6 +2,12 @@
 
 > - Spring Boot 3 maintenance (bug fixes, patches, and regular updates) continues on branch `release/springboot3`.
 
+## [6.1.0] - 2026-05-29
+
+### Changed
+
+- Correction: Official release with spring boot 4
+
 ## [6.0.0] - 2026-05-28
 
 ### Changed
