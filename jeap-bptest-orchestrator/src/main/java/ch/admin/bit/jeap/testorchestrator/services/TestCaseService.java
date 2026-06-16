@@ -24,6 +24,8 @@ import static net.logstash.logback.argument.StructuredArguments.value;
 @Slf4j
 public class TestCaseService {
 
+    private static final String TEST_ID = "testId";
+
     private final Map<String, TestCaseBaseInterface> testCasesMap;
     private final Map<String, Timer> timerMap;
     private final TestReportService testReportService;
@@ -85,7 +87,7 @@ public class TestCaseService {
         // 4. Call prepare on the TestCase Implementation (synchronous)
         try {
             testCaseInstance.prepare(testId, preparationDto);
-            log.info("Prepared {}", kv("testId", testRun.getTestId()));
+            log.info("Prepared {}", kv(TEST_ID, testRun.getTestId()));
             log.info("testcasename: {}", testRun.getTestCase().getName());
             log.info("testId: {}", testRun.getTestId());
 
@@ -114,13 +116,13 @@ public class TestCaseService {
             stopTimer(testId);
 
             testCaseInstance.verify(testId);
-            log.info("Verified {}", kv("testId", testId));
+            log.info("Verified {}", kv(TEST_ID, testId));
 
             testReportService.reportToJira(testId);
-            log.info("Reported {}", kv("testId", testId));
+            log.info("Reported {}", kv(TEST_ID, testId));
 
             testCaseInstance.cleanUp(testId);
-            log.info("Cleaned {}", kv("testId", testId));
+            log.info("Cleaned {}", kv(TEST_ID, testId));
 
         } catch (TestAgentException testAgentException) {
             logTestAgentException(testAgentException);
@@ -132,7 +134,7 @@ public class TestCaseService {
         log.error("[{}] Failed or timed out rest call for '{}'. Abort test run '{}'",
                 value("testAgentName", testAgentException.getTestAgentName()),
                 value("requestUrl", testAgentException.getRequestUrl()),
-                value("testId", testAgentException.getTestId()));
+                value(TEST_ID, testAgentException.getTestId()));
     }
 
     /**

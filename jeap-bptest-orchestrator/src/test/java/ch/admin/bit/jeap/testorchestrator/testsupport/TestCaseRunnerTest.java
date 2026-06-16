@@ -18,7 +18,6 @@ import java.util.concurrent.TimeoutException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 
 class TestCaseRunnerTest {
 
@@ -40,24 +39,24 @@ class TestCaseRunnerTest {
     }
 
     @Test
-    void testRun_WhenRan_InitiatesPrepareAndExecutePhase()  {
+    void testRunWhenRanInitiatesPrepareAndExecutePhase()  {
         ArgumentCaptor<PreparationDto> preparationDtoCaptor = ArgumentCaptor.forClass(PreparationDto.class);
 
         testCaseRunner.run(testCaseMock);
 
-        Mockito.verify(testCaseMock).prepare(eq(testId), preparationDtoCaptor.capture());
+        Mockito.verify(testCaseMock).prepare(Mockito.eq(testId), preparationDtoCaptor.capture());
         PreparationDto preparationDto = preparationDtoCaptor.getValue();
         assertThat(preparationDto.getTestCase()).isEqualTo(TEST_CASE_NAME);
         assertThat(preparationDto.getCallbackBaseUrl()).isEqualTo(testCaseRunner.getCallbackUrl());
         assertThat(preparationDto.getData()).isNullOrEmpty();
-        Mockito.verify(testCaseMock).execute(eq(testId));
+        Mockito.verify(testCaseMock).execute(testId);
         Mockito.verify(testCaseMock).getTestCaseName();
         Mockito.verifyNoMoreInteractions(testCaseMock);
         assertThat(testCaseRunner.hasFinished()).isFalse();
     }
 
     @Test
-    void testRun_WhenCalledMoreThanOnce_ThenThrowsException()  {
+    void testRunWhenCalledMoreThanOnceThenThrowsException()  {
         testCaseRunner.run(testCaseMock);
         assertThatThrownBy(
                 () -> testCaseRunner.run(testCaseMock)
@@ -81,27 +80,27 @@ class TestCaseRunnerTest {
     }
 
     @Test
-    void testPublishEvent_WhenExecuteDoneEventReceived_ThenInitiateVerifyAndCleanupPhases() {
+    void testPublishEventWhenExecuteDoneEventReceivedThenInitiateVerifyAndCleanupPhases() {
         ExecuteDoneEvent executeDoneEvent = new ExecuteDoneEvent(this, TEST_CASE_NAME,testId);
         testCaseRunner.run(testCaseMock);
 
         testCaseRunner.publishEvent(executeDoneEvent);
 
-        Mockito.verify(testCaseMock).verify(eq(testId));
-        Mockito.verify(testCaseMock).cleanUp(eq(testId));
+        Mockito.verify(testCaseMock).verify(testId);
+        Mockito.verify(testCaseMock).cleanUp(testId);
         assertThat(testCaseRunner.hasFinished()).isTrue();
     }
 
     @Test
     void testRunAsync() throws InterruptedException, ExecutionException, TimeoutException {
-        final String firsNotification = "first";
+        final String firstNotification = "first";
         final String secondNotification = "second";
 
         // When the test case runner starts the execute phase on the test case mock then schedule two asynchronous notifications,
         // one (secondNotification) being notified later than the other (firstNotification).
         Mockito.doAnswer(invocation -> {
             testCaseRunner.notifyAsync(createNotificationDto(secondNotification, testId), 500, TimeUnit.MILLISECONDS);
-            testCaseRunner.notifyAsync(createNotificationDto(firsNotification, testId), 250, TimeUnit.MILLISECONDS);
+            testCaseRunner.notifyAsync(createNotificationDto(firstNotification, testId), 250, TimeUnit.MILLISECONDS);
             return null;
         })
         .when(testCaseMock).execute(testId);
@@ -121,13 +120,13 @@ class TestCaseRunnerTest {
 
         ArgumentCaptor<NotificationEvent> notificationEventCaptor = ArgumentCaptor.forClass(NotificationEvent.class);
         Mockito.verify(testCaseMock, Mockito.times(2)).onApplicationEvent(notificationEventCaptor.capture());
-        assertThat(notificationEventCaptor.getAllValues().get(0).getNotification()).isEqualTo(firsNotification);
+        assertThat(notificationEventCaptor.getAllValues().get(0).getNotification()).isEqualTo(firstNotification);
         assertThat(notificationEventCaptor.getAllValues().get(1).getNotification()).isEqualTo(secondNotification);
         assertThat(testCaseRunner.hasFinished()).isTrue();
     }
 
     @Test
-    void testRunAsync_WhenAsyncNotificationPending_ThenDontComplete() {
+    void testRunAsyncWhenAsyncNotificationPendingThenDontComplete() {
         // When the test case runner starts the execute phase on the test case mock then schedule an asynchronous notification
         // delayed by 500 millis.
         Mockito.doAnswer(invocation -> {

@@ -22,11 +22,14 @@ public class ZephyrWebClient {
 
     private final RestClient restClient;
     private final String restApiUrl;
+    private final String testRunPath;
 
     public ZephyrWebClient(@Value("${orchestrator.zephyr.username}") String username,
                            @Value("${orchestrator.zephyr.password}") String password,
-                           @Value("${orchestrator.zephyr.restApiUrl}") String restApiUrl) {
+                           @Value("${orchestrator.zephyr.restApiUrl}") String restApiUrl,
+                           @Value("${orchestrator.zephyr.testRunPath:/testrun}") String testRunPath) {
         this.restApiUrl = restApiUrl;
+        this.testRunPath = testRunPath;
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setReadTimeout(Duration.ofSeconds(10));
         this.restClient = RestClient.builder()
@@ -47,7 +50,7 @@ public class ZephyrWebClient {
     }
 
     public void testrun(ZephyrTestRunDto zephyrTestRunDto) {
-        String uri = restApiUrl + "/testrun";
+        String uri = restApiUrl + testRunPath;
         log.info("Posting to Zephyr at {}: {}", uri, zephyrTestRunDto);
         restClient.post()
                 .uri(uri)

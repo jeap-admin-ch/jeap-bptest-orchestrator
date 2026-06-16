@@ -25,8 +25,12 @@ class MetricsViewControllerTest {
     private static final String TEST_CASE_NAME_1 = "MyTestCase_1";
     private static final String TEST_CASE_NAME_2 = "MyTestCase_2";
 
+    private final MockMvc mockMvc;
+
     @Autowired
-    private MockMvc mockMvc;
+    MetricsViewControllerTest(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
 
     @MockitoBean
     private TestCaseMetricsService testCaseMetricsService;
@@ -51,7 +55,7 @@ class MetricsViewControllerTest {
 
     @SneakyThrows
     @Test
-    void should_redirect_root_to_metrics() {
+    void shouldRedirectRootToMetrics() {
         mockMvc.perform(get("/"))
                 .andExpect(status().isFound())
                 .andExpect(header().string(HttpHeaders.LOCATION, "/metrics"));

@@ -87,7 +87,7 @@ public class TestRunService {
             TestReport testReport = testRun.getTestReport();
             if (testReport != null) {
                 List<TestResult> testResults = testReport.getTestResults();
-                String testResultDetail = "TestId: %s; Test was aborted. Reason: %s,\n %s ".format(testId, message, testResults.get(0).getDetail());
+                String testResultDetail = String.format("TestId: %s; Test was aborted. Reason: %s,%n %s ", testId, message, testResults.get(0).getDetail());
                 testReport.remove(0);
                 testReport.setDetail(testResultDetail);
             } else {
@@ -127,7 +127,7 @@ public class TestRunService {
                 TestReport testReport = testRun.getTestReport();
                 if (testReport != null) {
                     List<TestResult> testResults = testReport.getTestResults();
-                    String testResultDetail = "TestId: %s; The test lasted too long (>%s,\n %s seconds) --&gt; Aborted".format(testId, testRunTimeout / 1000, testResults.get(0).getDetail());
+                    String testResultDetail = String.format("TestId: %s; The test lasted too long (>%s,%n %s seconds) --&gt; Aborted", testId, testRunTimeout / 1000, testResults.get(0).getDetail());
                     testReport.remove(0);
                     testReport.setDetail(testResultDetail);
                 } else {

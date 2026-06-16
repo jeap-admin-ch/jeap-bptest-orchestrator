@@ -2,6 +2,13 @@
 
 > - Spring Boot 3 maintenance (bug fixes, patches, and regular updates) continues on branch `release/springboot3`.
 
+## [6.3.1] - 2026-06-16
+
+### Fixed
+
+- Sonar issues
+- Deprecated spring boot starter
+
 ## [6.3.0] - 2026-06-12
 
 ### Changed

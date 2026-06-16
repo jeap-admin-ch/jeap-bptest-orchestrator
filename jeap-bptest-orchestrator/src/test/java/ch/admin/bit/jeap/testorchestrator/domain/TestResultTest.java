@@ -36,10 +36,10 @@ class TestResultTest {
 
     @Test
     void testIfTheSameIsNotTheSame() {
-        TestResult testResult_1 = new TestResult(TEST_RESULT_NAME, TEST_RESULT_DETAIL, TestConclusion.FAIL);
-        TestResult testResult_2 = new TestResult(TEST_RESULT_NAME, TEST_RESULT_DETAIL, TestConclusion.FAIL);
+        TestResult testResult1 = new TestResult(TEST_RESULT_NAME, TEST_RESULT_DETAIL, TestConclusion.FAIL);
+        TestResult testResult2 = new TestResult(TEST_RESULT_NAME, TEST_RESULT_DETAIL, TestConclusion.FAIL);
 
-        assertNotEquals(testResult_2, testResult_1);
+        assertNotEquals(testResult2, testResult1);
     }
 
 }

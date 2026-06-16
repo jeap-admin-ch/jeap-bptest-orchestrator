@@ -26,11 +26,11 @@ class TestReportTest {
     void creatingTestReportWithAllFailedResult() {
         TestReport testReport = new TestReport(UUID.randomUUID(), TEST_REPORT_DETAIL);
 
-        TestResult testResult_1 = new TestResult("TR1", TEST_REPORT_DETAIL, TestConclusion.FAIL);
-        TestResult testResult_2 = new TestResult("TR2", TEST_REPORT_DETAIL, TestConclusion.FAIL);
+        TestResult testResult1 = new TestResult("TR1", TEST_REPORT_DETAIL, TestConclusion.FAIL);
+        TestResult testResult2 = new TestResult("TR2", TEST_REPORT_DETAIL, TestConclusion.FAIL);
 
-        testReport.add(testResult_1);
-        testReport.add(testResult_2);
+        testReport.add(testResult1);
+        testReport.add(testResult2);
 
         assertNotNull(testReport);
         assertNotNull(testReport.getId());
@@ -42,13 +42,13 @@ class TestReportTest {
     void creatingTestReportWithOneFailedResult() {
         TestReport testReport = new TestReport(UUID.randomUUID(), TEST_REPORT_DETAIL);
 
-        TestResult testResult_1 = new TestResult("TR1", TEST_REPORT_DETAIL, TestConclusion.NO_RESULT);
-        TestResult testResult_2 = new TestResult("TR2", TEST_REPORT_DETAIL, TestConclusion.PASS);
-        TestResult testResult_3 = new TestResult("TR3", TEST_REPORT_DETAIL, TestConclusion.FAIL);
+        TestResult testResult1 = new TestResult("TR1", TEST_REPORT_DETAIL, TestConclusion.NO_RESULT);
+        TestResult testResult2 = new TestResult("TR2", TEST_REPORT_DETAIL, TestConclusion.PASS);
+        TestResult testResult3 = new TestResult("TR3", TEST_REPORT_DETAIL, TestConclusion.FAIL);
 
-        testReport.add(testResult_1);
-        testReport.add(testResult_2);
-        testReport.add(testResult_3);
+        testReport.add(testResult1);
+        testReport.add(testResult2);
+        testReport.add(testResult3);
 
         assertNotNull(testReport);
         assertNotNull(testReport.getId());
@@ -60,13 +60,13 @@ class TestReportTest {
     void creatingTestReportWithAllPassedResults() {
         TestReport testReport = new TestReport(UUID.randomUUID(), TEST_REPORT_DETAIL);
 
-        TestResult testResult_1 = new TestResult("TR1", TEST_REPORT_DETAIL, TestConclusion.PASS);
-        TestResult testResult_2 = new TestResult("TR2", TEST_REPORT_DETAIL, TestConclusion.PASS);
-        TestResult testResult_3 = new TestResult("TR3", TEST_REPORT_DETAIL, TestConclusion.PASS);
+        TestResult testResult1 = new TestResult("TR1", TEST_REPORT_DETAIL, TestConclusion.PASS);
+        TestResult testResult2 = new TestResult("TR2", TEST_REPORT_DETAIL, TestConclusion.PASS);
+        TestResult testResult3 = new TestResult("TR3", TEST_REPORT_DETAIL, TestConclusion.PASS);
 
-        testReport.add(testResult_1);
-        testReport.add(testResult_2);
-        testReport.add(testResult_3);
+        testReport.add(testResult1);
+        testReport.add(testResult2);
+        testReport.add(testResult3);
 
         assertNotNull(testReport);
         assertNotNull(testReport.getId());
@@ -78,8 +78,8 @@ class TestReportTest {
     void checkIfTestResultHasTestReportReference() {
         TestReport testReport = new TestReport(UUID.randomUUID(), TEST_REPORT_DETAIL);
 
-        TestResult testResult_1 = new TestResult("TR1", TEST_REPORT_DETAIL, TestConclusion.PASS);
-        testReport.add(testResult_1);
+        TestResult testResult1 = new TestResult("TR1", TEST_REPORT_DETAIL, TestConclusion.PASS);
+        testReport.add(testResult1);
 
         assertNotNull(testReport);
         assertEquals(1, testReport.getTestResults().size());
@@ -102,9 +102,9 @@ class TestReportTest {
 
     @Test
     void testIfTheSameIsNotTheSame() {
-        TestReport testReport_1 = new TestReport(UUID.randomUUID(), TEST_REPORT_DETAIL);
-        TestReport testReport_2 = new TestReport(UUID.randomUUID(), TEST_REPORT_DETAIL);
+        TestReport testReport1 = new TestReport(UUID.randomUUID(), TEST_REPORT_DETAIL);
+        TestReport testReport2 = new TestReport(UUID.randomUUID(), TEST_REPORT_DETAIL);
 
-        assertNotEquals(testReport_1, testReport_2);
+        assertNotEquals(testReport1, testReport2);
     }
 }

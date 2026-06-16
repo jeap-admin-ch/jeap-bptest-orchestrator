@@ -16,9 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 class TestAgentsConfigTest {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-            @Autowired
-    private TestAgentsConfig testAgentsConfig;
+    private final TestAgentsConfig testAgentsConfig;
+
+    @Autowired
+    TestAgentsConfigTest(TestAgentsConfig testAgentsConfig) {
+        this.testAgentsConfig = testAgentsConfig;
+    }
 
     @Test
     void testAgentUrlMap() {

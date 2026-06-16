@@ -20,14 +20,18 @@ class TestCaseJpaRepositoryTest {
 
     private static final String TEST_CASE_NAME_1 = "TestCaseName1";
 
+    private final TestCaseJpaRepository repository;
+
     @Autowired
-    private TestCaseJpaRepository repository;
+    TestCaseJpaRepositoryTest(TestCaseJpaRepository repository) {
+        this.repository = repository;
+    }
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Test
-    void save_thenFind_expectEntityToBePersistedSuccessfully() {
+    void saveThenFindExpectEntityToBePersistedSuccessfully() {
         TestCase testCase = new TestCase(TEST_CASE_NAME_1, "jiraProjectKey", "zephyrKey");
 
         TestCase testCaseSaved = repository.saveAndFlush(testCase);

@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(OutputCaptureExtension.class)
 class LogServiceTest {
 
-    private final static String LOG_MESSAGE = "This is the Message";
+    private static final String LOG_MESSAGE = "This is the Message";
 
     @InjectMocks
     private LogService logService;

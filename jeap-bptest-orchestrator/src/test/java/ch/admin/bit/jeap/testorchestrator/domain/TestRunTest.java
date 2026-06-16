@@ -29,9 +29,9 @@ class TestRunTest {
     void addTestLogToTestRun() {
         TestRun testRun = createTestRun();
 
-        TestLog testLog_1 = new TestLog(LogLevel.INFO, "Msg", "Source");
+        TestLog testLog1 = new TestLog(LogLevel.INFO, "Msg", "Source");
 
-        testRun.add(testLog_1);
+        testRun.add(testLog1);
 
         assertNotNull(testRun);
         assertEquals(1, testRun.getTestLogs().size());
@@ -48,10 +48,10 @@ class TestRunTest {
 
     @Test
     void testIfTheSameIsNotTheSame() {
-        TestRun testRun_1 = createTestRun();
-        TestRun testRun_2 = createTestRun();
+        TestRun testRun1 = createTestRun();
+        TestRun testRun2 = createTestRun();
 
-        assertNotEquals(testRun_1, testRun_2);
+        assertNotEquals(testRun1, testRun2);
     }
 
     @Test

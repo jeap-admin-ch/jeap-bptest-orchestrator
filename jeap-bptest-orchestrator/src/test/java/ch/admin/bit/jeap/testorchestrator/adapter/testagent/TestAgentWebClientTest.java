@@ -23,8 +23,17 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 class TestAgentWebClientTest {
 
-    private final static String TEST_AGENT_A = "TestAgentA";
-    private final static ObjectMapper MAPPER = new ObjectMapper();
+    private static final String TEST_AGENT_A = "TestAgentA";
+    private static final String LOCALHOST_URL = "http://localhost:";
+    private static final String TEST_ID_123 = "123";
+    private static final String TEST_ID_678 = "678";
+    private static final String API_TESTS_123 = "/api/tests/123";
+    private static final String API_TESTS_123_ACTIONS = "/api/tests/123/actions";
+    private static final String API_TESTS_678_DYNAMIC_DATA = "/api/tests/678/dynamicdata";
+    private static final String API_TESTS_678 = "/api/tests/678";
+    private static final String ERROR_4XX = "is4xxClientError";
+    private static final String ERROR_5XX = "is5xxServerError";
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private static WireMockServer wireMockServer;
 
@@ -44,7 +53,7 @@ class TestAgentWebClientTest {
     @BeforeEach
     void initialize() {
         RestClient.Builder restClientBuilder = RestClient.builder();
-        Map<String, String> testAgentUrls = Map.of(TEST_AGENT_A, "http://localhost:" + wireMockServer.port());
+        Map<String, String> testAgentUrls = Map.of(TEST_AGENT_A, LOCALHOST_URL + wireMockServer.port());
         TestAgentsConfig testAgentsConfig = new TestAgentsConfig(testAgentUrls);
         testAgentWebClient = new TestAgentWebClient(restClientBuilder, testAgentsConfig);
     }
@@ -54,7 +63,7 @@ class TestAgentWebClientTest {
         PreparationResultDto mockPreparationResultDto = PreparationResultDto.builder()
                 .data("dataKey", "dataValue")
                 .build();
-        wireMockServer.stubFor(put(urlPathEqualTo("/api/tests/123"))
+        wireMockServer.stubFor(put(urlPathEqualTo(API_TESTS_123))
                 .willReturn(aResponse()
                         .withBody(MAPPER.writeValueAsString(mockPreparationResultDto))
                         .withStatus(200)
@@ -65,12 +74,12 @@ class TestAgentWebClientTest {
                 .data("key1", "value1")
                 .callbackBaseUrl("URL")
                 .build();
-        PreparationResultDto preparationResultDto = testAgentWebClient.prepare(TEST_AGENT_A, "123", mockPreparationDto);
+        PreparationResultDto preparationResultDto = testAgentWebClient.prepare(TEST_AGENT_A, TEST_ID_123, mockPreparationDto);
 
         assertEquals(mockPreparationResultDto.getData(), preparationResultDto.getData());
 
         wireMockServer.verify(
-                putRequestedFor(urlPathEqualTo("/api/tests/123"))
+                putRequestedFor(urlPathEqualTo(API_TESTS_123))
                         .withHeader(CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE)));
     }
 
@@ -79,7 +88,7 @@ class TestAgentWebClientTest {
         PreparationResultDto mockPreparationResultDto = PreparationResultDto.builder()
                 .data("dataKey", "dataValue")
                 .build();
-        wireMockServer.stubFor(put(urlPathEqualTo("/api/tests/123"))
+        wireMockServer.stubFor(put(urlPathEqualTo(API_TESTS_123))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
@@ -92,35 +101,35 @@ class TestAgentWebClientTest {
                 .build();
 
         //Test 1: Timeout
-        TestAgentException exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.prepare(TEST_AGENT_A, "123", mockPreparationDto));
+        TestAgentException exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.prepare(TEST_AGENT_A, TEST_ID_123, mockPreparationDto));
 
         assertTrue(exception.getMessage().contains(TEST_AGENT_A));
-        assertEquals("123", exception.getTestId());
+        assertEquals(TEST_ID_123, exception.getTestId());
 
         // Test 2: 4xx - Response
-        wireMockServer.stubFor(put(urlPathEqualTo("/api/tests/123"))
+        wireMockServer.stubFor(put(urlPathEqualTo(API_TESTS_123))
                 .willReturn(aResponse()
                         .withBody(MAPPER.writeValueAsString(mockPreparationResultDto))
                         .withStatus(400)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
-        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.prepare(TEST_AGENT_A, "123", mockPreparationDto));
+        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.prepare(TEST_AGENT_A, TEST_ID_123, mockPreparationDto));
 
-        assertTrue(exception.getMessage().contains("is4xxClientError"));
-        assertEquals("123", exception.getTestId());
+        assertTrue(exception.getMessage().contains(ERROR_4XX));
+        assertEquals(TEST_ID_123, exception.getTestId());
 
         // Test 3: 5xx - Response
-        wireMockServer.stubFor(put(urlPathEqualTo("/api/tests/123"))
+        wireMockServer.stubFor(put(urlPathEqualTo(API_TESTS_123))
                 .willReturn(aResponse()
                         .withBody(MAPPER.writeValueAsString(mockPreparationResultDto))
                         .withStatus(500)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
-        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.prepare(TEST_AGENT_A, "123", mockPreparationDto));
+        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.prepare(TEST_AGENT_A, TEST_ID_123, mockPreparationDto));
 
-        assertTrue(exception.getMessage().contains("is5xxServerError"));
-        assertEquals("123", exception.getTestId());
+        assertTrue(exception.getMessage().contains(ERROR_5XX));
+        assertEquals(TEST_ID_123, exception.getTestId());
 
         wireMockServer.verify(
-                putRequestedFor(urlPathEqualTo("/api/tests/123"))
+                putRequestedFor(urlPathEqualTo(API_TESTS_123))
                         .withHeader(CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE)));
     }
 
@@ -130,7 +139,7 @@ class TestAgentWebClientTest {
         ActionResultDto mockActionResultDto = ActionResultDto.builder()
                 .data("dataKey", "dataValue")
                 .build();
-        wireMockServer.stubFor(post(urlPathEqualTo("/api/tests/123/actions"))
+        wireMockServer.stubFor(post(urlPathEqualTo(API_TESTS_123_ACTIONS))
                 .willReturn(aResponse()
                         .withBody(MAPPER.writeValueAsString(mockActionResultDto))
                         .withStatus(200)
@@ -140,19 +149,19 @@ class TestAgentWebClientTest {
                 .action("Action")
                 .data(Map.of("key1", "value1"))
                 .build();
-        ActionResultDto actionResultDto = testAgentWebClient.act(TEST_AGENT_A, "123", actionDto);
+        ActionResultDto actionResultDto = testAgentWebClient.act(TEST_AGENT_A, TEST_ID_123, actionDto);
 
         assertEquals(mockActionResultDto.getData(), actionResultDto.getData());
 
         wireMockServer.verify(
-                postRequestedFor(urlPathEqualTo("/api/tests/123/actions"))
+                postRequestedFor(urlPathEqualTo(API_TESTS_123_ACTIONS))
                         .withHeader(CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE)));
     }
 
     @Test
     void actMustThrowExceptions() {
 
-        wireMockServer.stubFor(post(urlPathEqualTo("/api/tests/123/actions"))
+        wireMockServer.stubFor(post(urlPathEqualTo(API_TESTS_123_ACTIONS))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
@@ -165,60 +174,60 @@ class TestAgentWebClientTest {
 
         //Test 1: Timeout
         TestAgentException exception = assertThrows(TestAgentException.class, () ->
-                testAgentWebClient.act(TEST_AGENT_A, "123", actionDto));
+                testAgentWebClient.act(TEST_AGENT_A, TEST_ID_123, actionDto));
 
         assertTrue(exception.getMessage().contains(TEST_AGENT_A));
-        assertEquals("123", exception.getTestId());
+        assertEquals(TEST_ID_123, exception.getTestId());
         assertEquals(TEST_AGENT_A, exception.getTestAgentName());
-        assertEquals("http://localhost:" + wireMockServer.port(), exception.getRequestUrl());
+        assertEquals(LOCALHOST_URL + wireMockServer.port(), exception.getRequestUrl());
 
         // Test 2: 4xx - Response
-        wireMockServer.stubFor(post(urlPathEqualTo("/api/tests/123/actions"))
+        wireMockServer.stubFor(post(urlPathEqualTo(API_TESTS_123_ACTIONS))
                 .willReturn(aResponse()
                         .withStatus(400)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
         exception = assertThrows(TestAgentException.class, () ->
-                testAgentWebClient.act(TEST_AGENT_A, "123", actionDto));
+                testAgentWebClient.act(TEST_AGENT_A, TEST_ID_123, actionDto));
 
-        assertTrue(exception.getMessage().contains("is4xxClientError"));
-        assertEquals("123", exception.getTestId());
+        assertTrue(exception.getMessage().contains(ERROR_4XX));
+        assertEquals(TEST_ID_123, exception.getTestId());
         assertEquals(TEST_AGENT_A, exception.getTestAgentName());
-        assertEquals("http://localhost:" + wireMockServer.port(), exception.getRequestUrl());
+        assertEquals(LOCALHOST_URL + wireMockServer.port(), exception.getRequestUrl());
 
         // Test 3: 5xx - Response
-        wireMockServer.stubFor(post(urlPathEqualTo("/api/tests/123/actions"))
+        wireMockServer.stubFor(post(urlPathEqualTo(API_TESTS_123_ACTIONS))
                 .willReturn(aResponse()
                         .withStatus(500)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
         exception = assertThrows(TestAgentException.class, () ->
-                testAgentWebClient.act(TEST_AGENT_A, "123", actionDto));
+                testAgentWebClient.act(TEST_AGENT_A, TEST_ID_123, actionDto));
 
-        assertTrue(exception.getMessage().contains("is5xxServerError"));
-        assertEquals("123", exception.getTestId());
+        assertTrue(exception.getMessage().contains(ERROR_5XX));
+        assertEquals(TEST_ID_123, exception.getTestId());
         assertEquals(TEST_AGENT_A, exception.getTestAgentName());
-        assertEquals("http://localhost:" + wireMockServer.port(), exception.getRequestUrl());
+        assertEquals(LOCALHOST_URL + wireMockServer.port(), exception.getRequestUrl());
     }
 
     @Test
     void update() {
 
-        wireMockServer.stubFor(put(urlPathEqualTo("/api/tests/678/dynamicdata"))
+        wireMockServer.stubFor(put(urlPathEqualTo(API_TESTS_678_DYNAMIC_DATA))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
 
         DynamicDataDto dynamicDataDto = new DynamicDataDto(Map.of("key1", "value1"));
-        testAgentWebClient.update(TEST_AGENT_A, "678", dynamicDataDto);
+        testAgentWebClient.update(TEST_AGENT_A, TEST_ID_678, dynamicDataDto);
 
         wireMockServer.verify(
-                putRequestedFor(urlPathEqualTo("/api/tests/678/dynamicdata"))
+                putRequestedFor(urlPathEqualTo(API_TESTS_678_DYNAMIC_DATA))
                         .withHeader(CONTENT_TYPE, equalTo(APPLICATION_JSON_VALUE)));
     }
 
     @Test
     void updateMustThrowExceptions() {
 
-        wireMockServer.stubFor(put(urlPathEqualTo("/api/tests/678/dynamicdata"))
+        wireMockServer.stubFor(put(urlPathEqualTo(API_TESTS_678_DYNAMIC_DATA))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
@@ -227,137 +236,76 @@ class TestAgentWebClientTest {
         DynamicDataDto dynamicDataDto = new DynamicDataDto(Map.of("key1", "value1"));
 
         //Test 1: Timeout
-        TestAgentException exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.update(TEST_AGENT_A, "678", dynamicDataDto));
+        TestAgentException exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.update(TEST_AGENT_A, TEST_ID_678, dynamicDataDto));
 
         assertTrue(exception.getMessage().contains(TEST_AGENT_A));
-        assertEquals("678", exception.getTestId());
+        assertEquals(TEST_ID_678, exception.getTestId());
 
         // Test 2: 4xx - Response
-        wireMockServer.stubFor(put(urlPathEqualTo("/api/tests/678/dynamicdata"))
+        wireMockServer.stubFor(put(urlPathEqualTo(API_TESTS_678_DYNAMIC_DATA))
                 .willReturn(aResponse()
                         .withStatus(400)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
-        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.update(TEST_AGENT_A, "678", dynamicDataDto));
+        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.update(TEST_AGENT_A, TEST_ID_678, dynamicDataDto));
 
-        assertTrue(exception.getMessage().contains("is4xxClientError"));
-        assertEquals("678", exception.getTestId());
+        assertTrue(exception.getMessage().contains(ERROR_4XX));
+        assertEquals(TEST_ID_678, exception.getTestId());
 
         // Test 3: 5xx - Response
-        wireMockServer.stubFor(put(urlPathEqualTo("/api/tests/678/dynamicdata"))
+        wireMockServer.stubFor(put(urlPathEqualTo(API_TESTS_678_DYNAMIC_DATA))
                 .willReturn(aResponse()
                         .withStatus(500)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
-        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.update(TEST_AGENT_A, "678", dynamicDataDto));
+        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.update(TEST_AGENT_A, TEST_ID_678, dynamicDataDto));
 
-        assertTrue(exception.getMessage().contains("is5xxServerError"));
-        assertEquals("678", exception.getTestId());
+        assertTrue(exception.getMessage().contains(ERROR_5XX));
+        assertEquals(TEST_ID_678, exception.getTestId());
     }
 
     @Test
     void deleteOk() {
 
-        wireMockServer.stubFor(delete(urlPathEqualTo("/api/tests/678"))
+        wireMockServer.stubFor(delete(urlPathEqualTo(API_TESTS_678))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
 
-        testAgentWebClient.delete(TEST_AGENT_A, "678");
+        testAgentWebClient.delete(TEST_AGENT_A, TEST_ID_678);
 
         wireMockServer.verify(
-                deleteRequestedFor(urlPathEqualTo("/api/tests/678")));
+                deleteRequestedFor(urlPathEqualTo(API_TESTS_678)));
     }
 
     @Test
     void deleteMustThrowExceptions() {
 
-        wireMockServer.stubFor(delete(urlPathEqualTo("/api/tests/678"))
+        wireMockServer.stubFor(delete(urlPathEqualTo(API_TESTS_678))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
                         .withFixedDelay(10000))); // force timeout
 
         //Test 1: Timeout
-        TestAgentException exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.delete(TEST_AGENT_A, "678"));
+        TestAgentException exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.delete(TEST_AGENT_A, TEST_ID_678));
         assertTrue(exception.getMessage().contains(TEST_AGENT_A));
-        assertEquals("678", exception.getTestId());
+        assertEquals(TEST_ID_678, exception.getTestId());
 
         // Test 2: 4xx - Response
-        wireMockServer.stubFor(delete(urlPathEqualTo("/api/tests/678"))
+        wireMockServer.stubFor(delete(urlPathEqualTo(API_TESTS_678))
                 .willReturn(aResponse()
                         .withStatus(400)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
-        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.delete(TEST_AGENT_A, "678"));
-        assertTrue(exception.getMessage().contains("is4xxClientError"));
-        assertEquals("678", exception.getTestId());
+        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.delete(TEST_AGENT_A, TEST_ID_678));
+        assertTrue(exception.getMessage().contains(ERROR_4XX));
+        assertEquals(TEST_ID_678, exception.getTestId());
 
         // Test 3: 5xx - Response
-        wireMockServer.stubFor(delete(urlPathEqualTo("/api/tests/678"))
+        wireMockServer.stubFor(delete(urlPathEqualTo(API_TESTS_678))
                 .willReturn(aResponse()
                         .withStatus(500)
                         .withHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)));
-        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.delete(TEST_AGENT_A, "678"));
-        assertTrue(exception.getMessage().contains("is5xxServerError"));
-        assertEquals("678", exception.getTestId());
+        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.delete(TEST_AGENT_A, TEST_ID_678));
+        assertTrue(exception.getMessage().contains(ERROR_5XX));
+        assertEquals(TEST_ID_678, exception.getTestId());
     }
-/*
-    @Test
-    void verify() throws Exception {
-        String testId = UUID.randomUUID().toString();
-
-        ReportDto mockReportDto = ReportDto.builder()
-                .dateTime(ZonedDateTime.now())
-                .results(new ArrayList<>())
-                .testId(testId)
-                .testcase("TestCaseName")
-                .build();
-        mockBackEnd.enqueue(new MockResponse()
-                .setBody(MAPPER
-                        .registerModule(new JavaTimeModule())
-                        .writeValueAsString(mockReportDto))
-                .addHeader("Content-Type", "application/json"));
-
-        ReportDto reportDto = testAgentWebClient.verify(TEST_AGENT_A, testId);
-
-        assertEquals(mockReportDto.getTestId(), reportDto.getTestId());
-
-        RecordedRequest recordedRequest = mockBackEnd.takeRequest();
-        assertEquals("GET", recordedRequest.getMethod());
-        assertEquals("/api/tests/" + testId + "/report", recordedRequest.getPath());
-    }
-
-    @Test
-    void verifyMustThrowExceptions() throws Exception {
-        String testId = UUID.randomUUID().toString();
-
-        ReportDto mockReportDto = ReportDto.builder()
-                .dateTime(ZonedDateTime.now())
-                .results(new ArrayList<>())
-                .testId(testId)
-                .testcase("TestCaseName")
-                .build();
-        mockBackEnd.enqueue(new MockResponse()
-                .setBody(MAPPER
-                        .registerModule(new JavaTimeModule())
-                        .writeValueAsString(mockReportDto))
-                .addHeader("Content-Type", "application/json")
-                .setBodyDelay(6, TimeUnit.SECONDS));
-
-        //Test 1: Timeout
-        TestAgentException exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.verify(TEST_AGENT_A, testId));
-        assertTrue(exception.getMessage().contains(TEST_AGENT_A));
-        assertEquals(testId, exception.getTestId());
-
-        // Test 2: 4xx - Response
-        mockBackEnd.enqueue(new MockResponse().setResponseCode(400));
-        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.verify(TEST_AGENT_A, testId));
-        assertTrue(exception.getMessage().contains("is4xxClientError"));
-        assertEquals(testId, exception.getTestId());
-
-        // Test 3: 5xx - Response
-        mockBackEnd.enqueue(new MockResponse().setResponseCode(500));
-        exception = assertThrows(TestAgentException.class, () -> testAgentWebClient.verify(TEST_AGENT_A, testId));
-        assertTrue(exception.getMessage().contains("is5xxServerError"));
-        assertEquals(testId, exception.getTestId());
-    }
- */
 }

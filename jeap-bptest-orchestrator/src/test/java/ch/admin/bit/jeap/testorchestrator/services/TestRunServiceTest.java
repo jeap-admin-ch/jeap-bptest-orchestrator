@@ -44,7 +44,7 @@ class TestRunServiceTest {
 
 
     @Test
-    void getOverallTestConclusion_testReportNotPresent_returnNoResult() {
+    void getOverallTestConclusionTestReportNotPresentReturnNoResult() {
         when(testRunJpaRepository.getReferenceById(UUID.fromString(TEST_RUN_ID))).thenReturn(createTestRun());
         TestRunService testRunService = new TestRunService(null, testRunJpaRepository, transactionManager);
 
@@ -54,7 +54,7 @@ class TestRunServiceTest {
     }
 
     @Test
-    void getOverallTestConclusion_testReportPass_returnPass() {
+    void getOverallTestConclusionTestReportPassReturnPass() {
         TestRun testRun = createTestRun();
         TestReport testReport = new TestReport(UUID.randomUUID(), "test");
         testReport.add(new TestResult("test1", "test1", TestConclusion.PASS));
@@ -69,7 +69,7 @@ class TestRunServiceTest {
     }
 
     @Test
-    void getOverallTestConclusion_testReportFail_returnFail() {
+    void getOverallTestConclusionTestReportFailReturnFail() {
         TestRun testRun = createTestRun();
         TestReport testReport = new TestReport(UUID.randomUUID(), "test");
         testReport.add(new TestResult("test1", "test1", TestConclusion.PASS));

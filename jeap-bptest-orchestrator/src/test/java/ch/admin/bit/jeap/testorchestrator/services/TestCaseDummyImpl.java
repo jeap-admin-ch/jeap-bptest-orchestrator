@@ -30,22 +30,22 @@ public class TestCaseDummyImpl implements TestCaseBaseInterface {
 
     @Override
     public void execute(String testId) {
-
+        // no-op for tests
     }
 
     @Override
     public void verify(String testId) {
-
+        // no-op for tests
     }
 
     @Override
     public void cleanUp(String testId) {
-
+        // no-op for tests
     }
 
 
     @Override
     public void onApplicationEvent(NotificationEvent notificationEvent) {
-
+        // no-op for tests
     }
 }

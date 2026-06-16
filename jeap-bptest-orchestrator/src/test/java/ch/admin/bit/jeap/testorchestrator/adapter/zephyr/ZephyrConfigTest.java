@@ -14,9 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ActiveProfiles("test")
 class ZephyrConfigTest {
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-            @Autowired
-    private ZephyrConfig zephyrConfig;
+    private final ZephyrConfig zephyrConfig;
+
+    @Autowired
+    ZephyrConfigTest(ZephyrConfig zephyrConfig) {
+        this.zephyrConfig = zephyrConfig;
+    }
 
     @Test
     void testZeyprConfig() {

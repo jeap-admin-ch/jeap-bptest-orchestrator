@@ -1,10 +1,8 @@
 package ch.admin.bit.jeap.testorchestrator.services;
 
 import ch.admin.bit.jeap.testorchestrator.adapter.jpa.TestCaseJpaRepository;
-import ch.admin.bit.jeap.testorchestrator.adapter.jpa.TestRunJpaRepository;
 import ch.admin.bit.jeap.testorchestrator.domain.TestCase;
 import ch.admin.bit.jeap.testorchestrator.domain.TestRun;
-import ch.admin.bit.jeap.testorchestrator.domain.TestState;
 import ch.admin.bit.jeap.testorchestrator.domain.events.ExecuteDoneEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +22,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class TestCaseServiceTest {
 
+    private static final String TEST_CASE_DUMMY_IMPL = "TestCaseDummyImpl";
     private static final String CALLBACK_URL = "CallbackUrl";
     private static final String ZEYPR_ENV = "zeyprEnv";
     private static final long TEST_RUN_TIMEOUT = 30000;
@@ -69,16 +68,16 @@ class TestCaseServiceTest {
         when(testCaseJpaRepository.save(any(TestCase.class))).thenReturn(testCase);
         when(testRunService.createTestRun(ZEYPR_ENV, testCase)).thenReturn(testRun);
 
-        String testId = testCaseService.startTestRun("TestCaseDummyImpl");
+        String testId = testCaseService.startTestRun(TEST_CASE_DUMMY_IMPL);
 
-        assertEquals("TestCaseDummyImpl", testCaseDummyImpl.getPreparationDto().getTestCase());
+        assertEquals(TEST_CASE_DUMMY_IMPL, testCaseDummyImpl.getPreparationDto().getTestCase());
         assertDoesNotThrow(() -> UUID.fromString(testId));
         assertTrue(testCaseService.isTimerRunning(testId));
     }
 
     @Test
     void stopTestRun() {
-        final String testCaseName = "TestCaseDummyImpl" ;
+        final String testCaseName = TEST_CASE_DUMMY_IMPL;
         TestCase testCase = new TestCase(testCaseName, "jiraKey", "zephyrKey");
         TestRun testRun = new TestRun(ZEYPR_ENV, testCase);
 

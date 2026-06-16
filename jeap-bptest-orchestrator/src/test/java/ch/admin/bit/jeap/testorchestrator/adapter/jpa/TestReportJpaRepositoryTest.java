@@ -18,11 +18,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ContextConfiguration(classes = JpaAdapterConfig.class)
 class TestReportJpaRepositoryTest {
 
+    private final TestReportJpaRepository repository;
+
     @Autowired
-    private TestReportJpaRepository repository;
+    TestReportJpaRepositoryTest(TestReportJpaRepository repository) {
+        this.repository = repository;
+    }
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Test
     void saveWithNoTestResult() {
@@ -35,7 +39,7 @@ class TestReportJpaRepositoryTest {
     }
 
     @Test
-    void save_ThenGetOverallConculsion() {
+    void saveThenGetOverallConculsion() {
         TestReport testReport = new TestReport(UUID.randomUUID(), "Detail");
         TestResult testResult1 = new TestResult("TestResult1", "TestResultDetail", TestConclusion.FAIL);
         TestResult testResult2 = new TestResult("TestResult2", "TestResultDetail", TestConclusion.PASS);

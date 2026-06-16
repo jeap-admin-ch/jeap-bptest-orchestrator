@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -35,7 +34,7 @@ public class TestCaseMetricsService {
                             testRunMetricsDto.formattedAverageSuccessDuration(),
                             testRunMetricsDto.formattedAverageFailedDuration());
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private TestRunMetricsDto calculateTestRuns(List<TestRun> testRunList) {
@@ -58,7 +57,8 @@ public class TestCaseMetricsService {
             else if (TestState.ENDED.equals(testState)) {
                 // when the TestState is ENDED, we can not say if the all the TestStep passed
                 TestConclusion testConclusion = testRun.getTestReport().getOverallTestConclusion();
-                if (testConclusion.equals(TestConclusion.FAIL)) {
+                if (testConclusion.equals(TestConclusion.FAIL)
+                        || testConclusion.equals(TestConclusion.NO_RESULT)) {
                     failedTestRuns.getAndIncrement();
                     numberOfTestRuns.getAndIncrement();
                     failedTestRunList.add(testRun);
@@ -66,10 +66,6 @@ public class TestCaseMetricsService {
                     successfulTestRuns.getAndIncrement();
                     numberOfTestRuns.getAndIncrement();
                     successfulFullTestRunList.add(testRun);
-                } else if (testConclusion.equals(TestConclusion.NO_RESULT)) {
-                    failedTestRuns.getAndIncrement();
-                    numberOfTestRuns.getAndIncrement();
-                    failedTestRunList.add(testRun);
                 }
             }
 
@@ -90,7 +86,7 @@ public class TestCaseMetricsService {
         for (Duration duration : durationList) {
             totalDuration = totalDuration.plus(duration);
         }
-        if (durationList.size() == 0) {
+        if (durationList.isEmpty()) {
             return Duration.ZERO;
         }
         return totalDuration.dividedBy(durationList.size());

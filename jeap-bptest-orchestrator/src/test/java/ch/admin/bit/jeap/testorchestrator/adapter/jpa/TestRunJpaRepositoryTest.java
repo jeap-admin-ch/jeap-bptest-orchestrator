@@ -19,14 +19,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ContextConfiguration(classes = JpaAdapterConfig.class)
 class TestRunJpaRepositoryTest {
 
-    @Autowired
-    private TestRunJpaRepository repository;
+    private final TestRunJpaRepository repository;
+    private final TestCaseJpaRepository testCaseJpaRepository;
 
     @Autowired
-    private TestCaseJpaRepository testCaseJpaRepository;
+    TestRunJpaRepositoryTest(TestRunJpaRepository repository, TestCaseJpaRepository testCaseJpaRepository) {
+        this.repository = repository;
+        this.testCaseJpaRepository = testCaseJpaRepository;
+    }
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Test
     void saveTestRunAndGetById() {
@@ -40,8 +43,8 @@ class TestRunJpaRepositoryTest {
 
         entityManager.detach(testRunSaved);
 
-        TestRun testRundwithId = repository.getReferenceById(UUID.fromString(testId));
-        assertEquals(testId, testRundwithId.getTestId());
+        TestRun testRunWithId = repository.getReferenceById(UUID.fromString(testId));
+        assertEquals(testId, testRunWithId.getTestId());
     }
 
     @Test

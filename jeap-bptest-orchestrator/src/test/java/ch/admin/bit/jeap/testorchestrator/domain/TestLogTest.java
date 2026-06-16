@@ -24,7 +24,7 @@ class TestLogTest {
     }
 
     @Test
-    void excpectedNullPointerException() {
+    void expectedNullPointerException() {
         assertThrows(NullPointerException.class, () ->
                new TestLog(null, LOG_MESSAGE, LOG_SOURCE));
 
@@ -37,10 +37,10 @@ class TestLogTest {
 
     @Test
     void testIfTheSameIsNotTheSame() {
-        TestLog testLog_1 = new TestLog(LogLevel.INFO, LOG_MESSAGE, LOG_SOURCE);
-        TestLog testLog_2 = new TestLog(LogLevel.INFO, LOG_MESSAGE, LOG_SOURCE);
+        TestLog testLog1 = new TestLog(LogLevel.INFO, LOG_MESSAGE, LOG_SOURCE);
+        TestLog testLog2 = new TestLog(LogLevel.INFO, LOG_MESSAGE, LOG_SOURCE);
 
-        assertNotEquals(testLog_1, testLog_2);
+        assertNotEquals(testLog1, testLog2);
     }
 
 }

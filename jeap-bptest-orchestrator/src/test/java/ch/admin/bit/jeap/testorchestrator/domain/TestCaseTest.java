@@ -19,7 +19,6 @@ class TestCaseTest {
         assertEquals(TEST_CASE_NAME, testCase.getName());
         assertEquals(ZEPHYR_TEST_CASE_KEY, testCase.getZepyhrTestCaseKey());
         assertEquals(JIRA_PROJECT_KEY, testCase.getJiraProjectKey());
-        //assertEquals(0, testCase.getTestRuns().size());
     }
 
     @Test

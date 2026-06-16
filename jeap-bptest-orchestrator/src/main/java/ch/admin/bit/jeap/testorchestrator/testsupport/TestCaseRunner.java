@@ -21,9 +21,10 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TestCaseRunner implements ApplicationEventPublisher {
 
-    private static final String CALLBACK_URL = "localhost://dummy/callback";
+    private static final String DEFAULT_CALLBACK_URL = "localhost://dummy/callback";
 
     private final String testId = UUID.randomUUID().toString();
+    private final String callbackUrl;
 
     private TestcaseRunState testcaseRunState = TestcaseRunState.READY;
 
@@ -32,6 +33,14 @@ public class TestCaseRunner implements ApplicationEventPublisher {
     private List<CompletableFuture<?>> tasks = new ArrayList<>();
 
     private CompletableFuture<Void> asyncRunCompletableFuture;
+
+    public TestCaseRunner() {
+        this(DEFAULT_CALLBACK_URL);
+    }
+
+    public TestCaseRunner(String callbackUrl) {
+        this.callbackUrl = callbackUrl;
+    }
 
 
     /**
@@ -83,7 +92,7 @@ public class TestCaseRunner implements ApplicationEventPublisher {
      * @return the callback URL provided to the test case by the test runner.
      */
     public String getCallbackUrl() {
-        return CALLBACK_URL;
+        return callbackUrl;
     }
 
     /**
@@ -157,17 +166,17 @@ public class TestCaseRunner implements ApplicationEventPublisher {
         }
     }
 
-    synchronized private void addTask(CompletableFuture<Void> task) {
+    private synchronized void addTask(CompletableFuture<Void> task) {
         tasks.add(task);
     }
 
-    synchronized private boolean allTasksDone() {
+    private synchronized boolean allTasksDone() {
         return tasks.stream().allMatch(CompletableFuture::isDone);
     }
 
     private PreparationDto createPreparationDto() {
         return PreparationDto.builder()
-                .callbackBaseUrl(CALLBACK_URL)
+                .callbackBaseUrl(callbackUrl)
                 .testCase(testCase.getTestCaseName())
                 .build();
     }

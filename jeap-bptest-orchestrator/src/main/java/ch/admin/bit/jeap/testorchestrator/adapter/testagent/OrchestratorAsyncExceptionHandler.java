@@ -4,7 +4,6 @@ import ch.admin.bit.jeap.testorchestrator.services.TestReportService;
 import ch.admin.bit.jeap.testorchestrator.services.TestRunService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -13,16 +12,11 @@ import java.lang.reflect.Method;
 @Slf4j
 public class OrchestratorAsyncExceptionHandler implements AsyncUncaughtExceptionHandler {
 
-    private TestRunService testRunService;
-    private TestReportService testReportService;
+    private final TestRunService testRunService;
+    private final TestReportService testReportService;
 
-    @Autowired
-    public void setTestRunService(TestRunService testRunService) {
+    public OrchestratorAsyncExceptionHandler(TestRunService testRunService, TestReportService testReportService) {
         this.testRunService = testRunService;
-    }
-
-    @Autowired
-    public void setTestReportService(TestReportService testReportService) {
         this.testReportService = testReportService;
     }
 

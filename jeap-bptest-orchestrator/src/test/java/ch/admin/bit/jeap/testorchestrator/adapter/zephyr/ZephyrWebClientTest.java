@@ -23,11 +23,13 @@ class ZephyrWebClientTest {
 
     private static WireMockServer wireMockServer;
 
+    private final ZephyrConfig zephyrConfig;
     private ZephyrWebClient zephyrWebClient;
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
-    ZephyrConfig zephyrConfig;
+    ZephyrWebClientTest(ZephyrConfig zephyrConfig) {
+        this.zephyrConfig = zephyrConfig;
+    }
 
     @BeforeAll
     static void setUp() {
@@ -43,7 +45,7 @@ class ZephyrWebClientTest {
     @BeforeEach
     void initialize() {
         String testURL = zephyrConfig.getRestApiUrl() + wireMockServer.port();
-        this.zephyrWebClient = new ZephyrWebClient(zephyrConfig.getUsername(), zephyrConfig.getPassword(), testURL);
+        this.zephyrWebClient = new ZephyrWebClient(zephyrConfig.getUsername(), zephyrConfig.getPassword(), testURL, "/testrun");
     }
 
     @Test
@@ -53,7 +55,7 @@ class ZephyrWebClientTest {
                 .willReturn(aResponse()
                         .withStatus(200)));
 
-        ZephyrItemDto zephyrItem_1 = ZephyrItemDto.builder()
+        ZephyrItemDto zephyrItem1 = ZephyrItemDto.builder()
                 .comment("blabla")
                 .environment("env")
                 .testCaseKey("key")
@@ -65,7 +67,7 @@ class ZephyrWebClientTest {
                 .build();
         ZephyrTestRunDto mockZephyrTestRunDto = ZephyrTestRunDto.builder()
                 .name("Name")
-                .items(zephyrItem_1)
+                .items(zephyrItem1)
                 .projectKey("Pkey")
                 .build();
         zephyrWebClient.testrun(mockZephyrTestRunDto);

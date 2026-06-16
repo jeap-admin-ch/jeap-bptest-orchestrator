@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClient.RequestHeadersSpec.ConvertibleClientHttpResponse;
@@ -29,7 +31,8 @@ public class TestAgentWebClient {
     private final RestClient restClient;
     private final Map<String, String> testAgentsMap;
     private final Duration readTimeout;
-    private static final String API_PATH = "/api/tests/";
+    private static final String DEFAULT_API_PATH = "/api/tests/";
+    private final String testAgentApiPath;
     private static final int TIMEOUT_5_SECONDS = 5;
 
     public static final String IS_4_XX_ERROR = "is4xxClientError; TestAgent: ";
@@ -37,8 +40,16 @@ public class TestAgentWebClient {
     public static final String ERR_MSG = "Could not connect or timeout to TestAgent: ";
 
     public TestAgentWebClient(RestClient.Builder restClientBuilder, TestAgentsConfig testAgentsConfig) {
+        this(restClientBuilder, testAgentsConfig, DEFAULT_API_PATH);
+    }
+
+    @Autowired
+    public TestAgentWebClient(RestClient.Builder restClientBuilder,
+                              TestAgentsConfig testAgentsConfig,
+                              @Value("${orchestrator.testAgent.apiPath:" + DEFAULT_API_PATH + "}") String testAgentApiPath) {
         this.testAgentsMap = testAgentsConfig.getTestAgentURLs();
         this.readTimeout = Duration.ofSeconds(testAgentsConfig.getReadTimeout(TIMEOUT_5_SECONDS));
+        this.testAgentApiPath = normalizeApiPath(testAgentApiPath);
         this.restClient = createRestClient(restClientBuilder);
     }
 
@@ -53,7 +64,7 @@ public class TestAgentWebClient {
         log.info("Prepare {} for test {}: Put {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), preparationDto, testAgentURL);
         try {
             return restClient.put()
-                    .uri(testAgentURL + API_PATH + testId)
+                    .uri(buildTestAgentUri(testAgentURL, testId, ""))
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(preparationDto)
                     .exchange( (clientRequest, clientResponse) -> {
@@ -70,7 +81,7 @@ public class TestAgentWebClient {
         log.info("Act on {} for test {}: Put {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), actionDto, testAgentURL);
         try {
             return restClient.post()
-                    .uri(testAgentURL + API_PATH + testId + "/actions")
+                    .uri(buildTestAgentUri(testAgentURL, testId, "/actions"))
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(actionDto)
                     .exchange( (clientRequest, clientResponse) -> {
@@ -87,7 +98,7 @@ public class TestAgentWebClient {
         log.info("Update {} for test {}: Put {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), dynamicDataDto, testAgentURL);
         try {
             restClient.put()
-                    .uri(testAgentURL + API_PATH + testId + "/dynamicdata")
+                    .uri(buildTestAgentUri(testAgentURL, testId, "/dynamicdata"))
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(dynamicDataDto)
                     .exchange( (clientRequest, clientResponse) -> {
@@ -104,7 +115,7 @@ public class TestAgentWebClient {
         log.info("Verify {} for test {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), testAgentURL);
         try {
             return restClient.get()
-                    .uri(testAgentURL + API_PATH + testId + "/report")
+                    .uri(buildTestAgentUri(testAgentURL, testId, "/report"))
                     .exchange( (clientRequest, clientResponse) -> {
                         handleError(clientResponse, testId, testAgentName, testAgentURL);
                         return clientResponse.bodyTo(ReportDto.class);
@@ -119,7 +130,7 @@ public class TestAgentWebClient {
         log.info("Delete on {} for test {} with url {}", value(TEST_AGENT_NAME, testAgentName), value(TEST_ID, testId), testAgentURL);
         try {
             restClient.delete()
-                    .uri(testAgentURL + API_PATH + testId)
+                    .uri(buildTestAgentUri(testAgentURL, testId, ""))
                     .exchange( (clientRequest, clientResponse) -> {
                         handleError(clientResponse, testId, testAgentName, testAgentURL);
                         return clientResponse.bodyTo(Void.class);
@@ -143,6 +154,28 @@ public class TestAgentWebClient {
             throw tae;
         }
         return new TestAgentException(testId, testAgentName, testAgentURL, ERR_MSG + testAgentName);
+    }
+
+    private String buildTestAgentUri(String testAgentURL, String testId, String endpointSuffix) {
+        return normalizeBaseUrl(testAgentURL) + testAgentApiPath + testId + endpointSuffix;
+    }
+
+    private String normalizeBaseUrl(String testAgentURL) {
+        if (testAgentURL != null && testAgentURL.endsWith("/")) {
+            return testAgentURL.substring(0, testAgentURL.length() - 1);
+        }
+        return testAgentURL;
+    }
+
+    private String normalizeApiPath(String apiPath) {
+        if (apiPath == null || apiPath.isBlank()) {
+            return DEFAULT_API_PATH;
+        }
+        String normalizedPath = apiPath.trim().replaceAll("^/+", "").replaceAll("/+$", "");
+        if (normalizedPath.isEmpty()) {
+            return DEFAULT_API_PATH;
+        }
+        return "/" + normalizedPath + "/";
     }
 
 }
