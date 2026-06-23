@@ -40,8 +40,10 @@
 
     <properties>
         <maven.javadoc.skip>false</maven.javadoc.skip>
+        <jeap-bptestagent-api.version>4.3.0</jeap-bptestagent-api.version>
+        <wiremock.version>3.13.2</wiremock.version>
     </properties>
-    
+
     <modules>
         <module>jeap-bptest-orchestrator</module>
         <module>jeap-bptest-orchestrator-instance</module>
@@ -87,4 +89,4 @@
             </plugin>
         </plugins>
     </build>
-  </project>
+</project>
