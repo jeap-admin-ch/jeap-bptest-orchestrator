@@ -126,7 +126,6 @@ Apache License Version 2.0
  * spring-boot-validation - [org.springframework.boot:spring-boot-validation](https://spring.io/projects/spring-boot)
  * spring-boot-web-server - [org.springframework.boot:spring-boot-web-server](https://spring.io/projects/spring-boot)
  * spring-boot-webmvc - [org.springframework.boot:spring-boot-webmvc](https://spring.io/projects/spring-boot)
- * spring-boot-webmvc-test - [org.springframework.boot:spring-boot-webmvc-test](https://spring.io/projects/spring-boot)
  * Spring Data Core - [org.springframework.data:spring-data-commons](https://spring.io/projects/spring-data)
  * Spring Data JPA - [org.springframework.data:spring-data-jpa](https://projects.spring.io/spring-data-jpa)
  * thymeleaf - [org.thymeleaf:thymeleaf](http://www.thymeleaf.org/thymeleaf-lib/thymeleaf)
