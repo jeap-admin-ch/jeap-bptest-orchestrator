@@ -34,14 +34,14 @@
 
     <artifactId>jeap-bptest-orchestrator-parent</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
-    <version>9.0.0-SNAPSHOT</version>
+    <version>9.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>Parent project of the jEAP Business Process Test Orchestrator</description>
 
     <properties>
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <jeap-bptestagent-api.version>5.5.0</jeap-bptestagent-api.version>
-        <wiremock.version>3.13.2</wiremock.version>
+        <wiremock-spring-boot.version>4.2.2</wiremock-spring-boot.version>
     </properties>
 
     <modules>
@@ -54,7 +54,7 @@
             <dependency>
                 <groupId>ch.admin.bit.jeap</groupId>
                 <artifactId>jeap-bptest-orchestrator</artifactId>
-                <version>9.0.0-SNAPSHOT</version>
+                <version>9.1.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

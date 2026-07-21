@@ -2,6 +2,11 @@
 
 > - Spring Boot 3 maintenance (bug fixes, patches, and regular updates) continues on branch `release/springboot3`.
 
+## [9.1.0] - 2026-07-21
+
+### Changed
+- Use the standalone WireMock Spring Boot integration without exposed Jetty dependencies.
+
 ## [9.0.0] - 2026-07-21
 
 ### Dependencies
