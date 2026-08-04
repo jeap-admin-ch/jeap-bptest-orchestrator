@@ -2,6 +2,11 @@
 
 > - Spring Boot 3 maintenance (bug fixes, patches, and regular updates) continues on branch `release/springboot3`.
 
+## [12.0.1] - 2026-08-04
+
+### Dependencies
+- **ch.admin.bit.jeap:jeap-bptestagent-api**: 7.0.0 → 7.0.1 (patch)
+
 ## [12.0.0] - 2026-08-02
 
 ### Dependencies
