@@ -2,6 +2,11 @@
 
 > - Spring Boot 3 maintenance (bug fixes, patches, and regular updates) continues on branch `release/springboot3`.
 
+## [12.1.0] - 2026-08-05
+
+### Dependencies
+- Updated dependencies
+
 ## [12.0.1] - 2026-08-04
 
 ### Dependencies
