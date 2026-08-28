@@ -1,18 +1,28 @@
-# jEAP BusinessProcessTest Orchestrator 
+# jEAP Business Process Test Orchestrator
 
-## Installing / Getting started
+jEAP Business Process Test Orchestrator is a library for orchestrating end-to-end business process tests across multiple applications. It provides the domain model, persistence, test-agent client, test-case lifecycle, Zephyr reporting integration, and test-support utilities needed to build an orchestrator service on top of Spring Boot.
 
-Normally you will not use this project directly, but instead set up your own Orchestrator depending on this common library.
+Most consumers do not run this repository directly. Instead, they create their own orchestrator service, inherit from `jeap-bptest-orchestrator-instance`, implement one or more `TestCaseBaseInterface` test cases, and expose the small REST API that test agents use for logs and notifications.
 
-## Developing
+## Documentation
 
-### Start locally
-You can not start the project locally, it's only a Library
+Start with [Getting started](docs/getting-started.md), then follow the links below.
 
-### Versioning & Changes
+| Topic | File |
+|---|---|
+| Getting started | [docs/getting-started.md](docs/getting-started.md) |
+| Architecture | [docs/architecture.md](docs/architecture.md) |
+| Configuration reference | [docs/configuration.md](docs/configuration.md) |
+| Test-case lifecycle | [docs/test-case-lifecycle.md](docs/test-case-lifecycle.md) |
+| TestAgent API contract | [docs/test-agent-api.md](docs/test-agent-api.md) |
+| Testing custom test cases | [docs/testing-test-cases.md](docs/testing-test-cases.md) |
+| Zephyr reporting | [docs/reporting.md](docs/reporting.md) |
+| Metrics UI | [docs/metrics.md](docs/metrics.md) |
 
-This library needs to be versioned using [Semantic Versioning](http://semver.org/) and all changed need to be documented at [CHANGELOG.md](./CHANGELOG.md) following the format defined in [Keep a Changelog](http://keepachangelog.com/)
+## Changes
 
+This library is versioned using [Semantic Versioning](http://semver.org/) and all changes are documented in
+[CHANGELOG.md](./CHANGELOG.md) following the format defined in [Keep a Changelog](http://keepachangelog.com/).
 
 ## Note
 
