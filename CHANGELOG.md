@@ -2,6 +2,11 @@
 
 > - Spring Boot 3 maintenance (bug fixes, patches, and regular updates) continues on branch `release/springboot3`.
 
+## [18.3.1] - 2026-09-17
+
+### Removed
+- Removed the `wiremock-spring-boot.version` property and the explicit version on `wiremock-spring-boot-standalone`: `jeap-internal-spring-boot-parent` already manages it at the same 4.2.3.
+
 ## [18.3.0] - 2026-09-17
 
 ### Dependencies
