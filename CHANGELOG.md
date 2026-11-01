@@ -2,6 +2,11 @@
 
 > - Spring Boot 3 maintenance (bug fixes, patches, and regular updates) continues on branch `release/springboot3`.
 
+## [18.23.1] - 2026-11-01
+
+### Dependencies
+- **ch.admin.bit.jeap:jeap-spring-boot-parent**: 41.29.0 → 41.29.1 (patch)
+
 ## [18.23.0] - 2026-10-28
 
 ### Dependencies
