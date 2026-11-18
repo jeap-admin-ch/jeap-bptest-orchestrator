@@ -2,6 +2,11 @@
 
 > - Spring Boot 3 maintenance (bug fixes, patches, and regular updates) continues on branch `release/springboot3`.
 
+## [18.26.1] - 2026-11-18
+
+### Changed
+- The build mirrors released artifacts to the new Nexus instances primus and campus.
+
 ## [18.26.0] - 2026-11-15
 
 ### Dependencies
