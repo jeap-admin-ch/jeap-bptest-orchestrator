@@ -5,7 +5,7 @@ import ch.admin.bit.jeap.testagent.api.act.ActionResultDto;
 import ch.admin.bit.jeap.testagent.api.prepare.PreparationDto;
 import ch.admin.bit.jeap.testagent.api.prepare.PreparationResultDto;
 import ch.admin.bit.jeap.testagent.api.update.DynamicDataDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -33,7 +33,7 @@ class TestAgentWebClientTest {
     private static final String API_TESTS_678 = "/api/tests/678";
     private static final String ERROR_4XX = "is4xxClientError";
     private static final String ERROR_5XX = "is5xxServerError";
-    private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final JsonMapper MAPPER = new JsonMapper();
 
     private static WireMockServer wireMockServer;
 

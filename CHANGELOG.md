@@ -4,6 +4,9 @@
 
 ## [18.31.0] - 2026-11-26
 
+### Changed
+- Use Jackson 3 in `TestAgentWebClientTest`, as Jackson 2 is no longer on the classpath with Spring Boot 4.2.
+
 ### Dependencies
 - **ch.admin.bit.jeap:jeap-spring-boot-parent**: 41.42.0 → 41.44.0 (minor)
 - **ch.admin.bit.jeap:jeap-bptestagent-api**: 10.22.0 → 10.23.0 (minor)
