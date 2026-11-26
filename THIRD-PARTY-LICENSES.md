@@ -18,10 +18,6 @@ Apache License Version 2.0
  * ch.admin.bit.jeap:jeap-spring-boot-swagger-starter - [ch.admin.bit.jeap:jeap-spring-boot-swagger-starter](https://github.com/jeap-admin-ch/jeap-spring-boot-starters/tree/main/jeap-spring-boot-swagger-starter)
  * ClassMate - [com.fasterxml:classmate](https://github.com/FasterXML/java-classmate)
  * Jackson-annotations - [com.fasterxml.jackson.core:jackson-annotations](https://github.com/FasterXML/jackson)
- * Jackson-core - [com.fasterxml.jackson.core:jackson-core](https://github.com/FasterXML/jackson-core)
- * jackson-databind - [com.fasterxml.jackson.core:jackson-databind](https://github.com/FasterXML/jackson)
- * Jackson-dataformat-YAML - [com.fasterxml.jackson.dataformat:jackson-dataformat-yaml](https://github.com/FasterXML/jackson-dataformats-text)
- * Jackson datatype: JSR310 - [com.fasterxml.jackson.datatype:jackson-datatype-jsr310](https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jsr310)
  * json-path - [com.jayway.jsonpath:json-path](https://github.com/jayway/JsonPath)
  * JSON library from Android SDK - [com.vaadin.external.google:android-json](http://developer.android.com/sdk)
  * HikariCP - [com.zaxxer:HikariCP](https://github.com/brettwooldridge/HikariCP)
@@ -41,9 +37,9 @@ Apache License Version 2.0
  * OpenTelemetry Java - [io.opentelemetry:opentelemetry-sdk-metrics](https://github.com/open-telemetry/opentelemetry-java)
  * OpenTelemetry Java - [io.opentelemetry:opentelemetry-sdk-trace](https://github.com/open-telemetry/opentelemetry-java)
  * OpenTelemetry Semantic Conventions Java - [io.opentelemetry.semconv:opentelemetry-semconv](https://github.com/open-telemetry/semantic-conventions-java)
- * swagger-annotations-jakarta - [io.swagger.core.v3:swagger-annotations-jakarta](https://github.com/swagger-api/swagger-core/modules/swagger-annotations-jakarta)
- * swagger-core-jakarta - [io.swagger.core.v3:swagger-core-jakarta](https://github.com/swagger-api/swagger-core/modules/swagger-core-jakarta)
- * swagger-models-jakarta - [io.swagger.core.v3:swagger-models-jakarta](https://github.com/swagger-api/swagger-core/modules/swagger-models-jakarta)
+ * swagger-annotations - [io.swagger.core.v3:swagger-annotations](https://github.com/swagger-api/swagger-core/modules/swagger-annotations)
+ * swagger-core - [io.swagger.core.v3:swagger-core](https://github.com/swagger-api/swagger-core/modules/swagger-core)
+ * swagger-models - [io.swagger.core.v3:swagger-models](https://github.com/swagger-api/swagger-core/modules/swagger-models)
  * Jakarta Dependency Injection - [jakarta.inject:jakarta.inject-api](https://github.com/eclipse-ee4j/injection-api)
  * Jakarta Validation API - [jakarta.validation:jakarta.validation-api](https://beanvalidation.org)
  * Byte Buddy (without dependencies) - [net.bytebuddy:byte-buddy](https://bytebuddy.net/byte-buddy)
@@ -71,6 +67,7 @@ Apache License Version 2.0
  * Objenesis - [org.objenesis:objenesis](http://objenesis.org/objenesis)
  * org.opentest4j:opentest4j - [org.opentest4j:opentest4j](https://github.com/ota4j-team/opentest4j)
  * JSONassert - [org.skyscreamer:jsonassert](https://github.com/skyscreamer/JSONassert)
+ * SnakeYAML Engine - [org.snakeyaml:snakeyaml-engine](https://bitbucket.org/snakeyaml/snakeyaml-engine)
  * springdoc-openapi-starter-common - [org.springdoc:springdoc-openapi-starter-common](https://springdoc.org/springdoc-openapi-starter-common/)
  * springdoc-openapi-starter-webmvc-api - [org.springdoc:springdoc-openapi-starter-webmvc-api](https://springdoc.org/springdoc-openapi-starter-webmvc-api/)
  * springdoc-openapi-starter-webmvc-ui - [org.springdoc:springdoc-openapi-starter-webmvc-ui](https://springdoc.org/springdoc-openapi-starter-webmvc-ui/)
@@ -135,15 +132,16 @@ Apache License Version 2.0
  * Spring Data JPA - [org.springframework.data:spring-data-jpa](https://projects.spring.io/spring-data-jpa)
  * thymeleaf - [org.thymeleaf:thymeleaf](http://www.thymeleaf.org/thymeleaf-lib/thymeleaf)
  * thymeleaf-spring6 - [org.thymeleaf:thymeleaf-spring6](http://www.thymeleaf.org/thymeleaf-lib/thymeleaf-spring6)
- * unbescape - [org.unbescape:unbescape](http://www.unbescape.org)
+ * unbescape - [org.unbescape:unbescape](https://www.unbescape.org)
  * Swagger UI - [org.webjars:swagger-ui](https://www.webjars.org)
  * WireMock - [org.wiremock:wiremock-standalone](http://wiremock.org)
  * wiremock-spring-boot - [org.wiremock.integrations:wiremock-spring-boot](https://github.com/wiremock/wiremock-spring-boot)
  * wiremock-spring-boot-standalone - [org.wiremock.integrations:wiremock-spring-boot-standalone](https://github.com/wiremock/wiremock-spring-boot)
  * org.xmlunit:xmlunit-core - [org.xmlunit:xmlunit-core](https://www.xmlunit.org/)
- * SnakeYAML - [org.yaml:snakeyaml](https://bitbucket.org/snakeyaml/snakeyaml)
+ * SnakeYAML - [org.yaml:snakeyaml](https://codeberg.org/snakeyaml/snakeyaml)
  * Jackson-core - [tools.jackson.core:jackson-core](https://github.com/FasterXML/jackson-core)
  * jackson-databind - [tools.jackson.core:jackson-databind](https://github.com/FasterXML/jackson)
+ * Jackson-dataformat-YAML - [tools.jackson.dataformat:jackson-dataformat-yaml](https://github.com/FasterXML/jackson-dataformats-text)
 
 BSD 2-Clause License
 -------------------------------
@@ -222,8 +220,3 @@ Mozilla Public License, Version 2.0
 -------------------------------
 
  * H2 Database Engine - [com.h2database:h2](https://h2database.com)
-
-Public Domain
--------------------------------
-
- * AOP alliance - [aopalliance:aopalliance](http://aopalliance.sourceforge.net)
